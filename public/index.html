@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,22 +9,27 @@
     <div id="checkbox-container"></div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const checkboxes = new Array(100).fill(0);
+      const checkboxes = new Array(100).fill(false);
       const checkBoxContainer = document.getElementById("checkbox-container");
 
+      //   To Initialize All The Checkboxes......
       checkboxes.forEach((checkbox, i) => {
         const input = document.createElement("input");
         input.setAttribute("type", "checkbox");
         input.id = `index-${i}`;
+
+        // Event Listener To Tell About The State Change.....
         input.addEventListener("change", (e) => {
           socket.emit("checkbox-update", { index: i, value: input.checked });
         });
+
         checkBoxContainer.append(input);
       });
 
       const socket = io(); // Connects to the backend over websocket
       const messageContainer = document.getElementById("messages-container");
 
+      //   Function To Publish An State Change.....
       async function stateUpdate() {
         const resp = await fetch("/state", {
           headers: {
@@ -33,6 +38,7 @@
         });
         const _json = await resp.json();
         if (_json.state) {
+          // Set State To Each Checkbox.....
           _json.state.forEach((e, index) => {
             const el = document.getElementById(`index-${index}`);
             el.checked = e;
@@ -40,14 +46,9 @@
         }
       }
 
+      //   Socket To Update The New State To All Checkboxes.....
       socket.on("checkbox-update", ({ index, value }) => {
         stateUpdate();
-      });
-
-      socket.on("server-message", (msg) => {
-        const li = document.createElement("li");
-        li.innerText = msg;
-        messageContainer.appendChild(li);
       });
 
       stateUpdate();
