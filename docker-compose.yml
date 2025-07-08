@@ -1,0 +1,8 @@
+# Val-Key Is An Drop-In Replacement Of Redis Which Is Purely Open Source.....
+# To Start This :: docker compose up -d
+
+services:
+  valkey:
+    image: valkey/valkey:latest
+    ports:
+      - 6379:6379

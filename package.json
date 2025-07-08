@@ -1,0 +1,23 @@
+{
+  "name": "check-boxes",
+  "version": "1.0.0",
+  "description": "An Basic App To Learn Redis + WebSockets",
+  "license": "ISC",
+  "author": "Yash Pandey",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.10.0",
+    "express": "^5.1.0",
+    "ioredis": "^5.6.1",
+    "prettier": "^3.6.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
